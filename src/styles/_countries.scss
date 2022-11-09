@@ -1,0 +1,50 @@
+body {
+  background-image: url(../images/fon.jpg);
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
+}
+.search {
+  position: relative;
+  width: 400px;
+}
+.search-input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 10px 100px 10px 20px;
+  line-height: 1;
+  box-sizing: border-box;
+  outline: none;
+  background-color: #fff;
+  color: black;
+}
+
+.js-card-container {
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+  font-size: 1.4rem;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: start;
+}
+.card-body {
+  margin-right: 20px;
+}
+
+.list-group {
+  list-style: none;
+}

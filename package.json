@@ -1,0 +1,43 @@
+{
+  "name": "name-project",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve --env develop",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
+  },
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "handlebars-loader": "^1.7.2",
+    "html-loader": "^3.1.0",
+    "mini-css-extract-plugin": "^2.5.2",
+    "pnotify": "^5.2.0",
+    "sass": "^1.49.0",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3"
+  },
+  "dependencies": {
+    "gh-pages-webpack-plugin": "^1.0.2",
+    "handlebars-template-loader": "^1.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "lodash.debounce": "^4.0.8",
+    "normalize.css": "^8.0.1"
+  },
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alinchyk/goit-js-hw-12-countries.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alinchyk/goit-js-hw-12-countries/issues"
+  },
+  "homepage": "https://github.com/Alinchyk/goit-js-hw-12-countries#readme",
+  "description": ""
+}
