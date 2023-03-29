@@ -2,60 +2,48 @@ import "normalize.css";
 import "./styles/main.scss";
 import templateFunction from "./templates/countriesMarkup.hbs";
 import templateList from "./templates/list.hbs";
-import "./js/pnotify";
-import { error } from "@pnotify/core";
+import { onOutputInfo, onNoCountry } from "./js/pnotify";
 import debounce from "lodash.debounce";
 import API from "./js/fetch";
 import getRefs from "./js/get-refs";
 
-// змінні
 const refs = getRefs();
 
-// слухачі
-refs.input.addEventListener("input", debounce(onInputSearch, 500));
+const rederCountryCard = function (country) {
+  refs.cardContainer.innerHTML = templateFunction(country);
+};
 
-// розмітка
-function rederCountryCard(country) {
-  const markup = templateFunction(country);
-  refs.cardContainer.innerHTML = markup;
-}
+const renderCountryList = function (countryName) {
+  refs.cardContainer.innerHTML = templateList(countryName);
+};
 
-function renderCountryList(countryName) {
-  const markup = templateList(countryName);
-  refs.cardContainer.innerHTML = markup;
-}
-
-// пошук
-function onInputSearch(e) {
+const onInputSearch = function (e) {
   e.preventDefault();
 
-  const searchQuery = e.target.value;
+  const searchQuery = e.target.value.trim();
   clearInput();
 
   API.fetchCountry(searchQuery)
     .then(isValidSearchQuery)
-    .catch(itsError => {
-      console.log(itsError);
-    });
+    .catch(error => alert(error));
+};
 
-  // валідність
-  function isValidSearchQuery(e) {
-    if (e.length === 1) {
-      rederCountryCard(e);
-      return;
-    } else if (e.length > 2 && e.length <= 10) {
-      renderCountryList(e);
-      return;
-    }
-
-    // помилка
-    const itsError = error({
-      text: "Too many matches found. Please enter a more specific query!",
-    });
-    return itsError;
+const isValidSearchQuery = function (e) {
+  if (e.length === 1) {
+    rederCountryCard(e);
+    return;
+  } else if (e.length > 2 && e.length <= 10) {
+    renderCountryList(e);
+    return;
+  } else if (e.length > 10) {
+    return onOutputInfo();
+  } else if (e.status === 404) {
+    return onNoCountry();
   }
-}
+};
 
-function clearInput() {
+const clearInput = function () {
   refs.cardContainer.innerHTML = "";
-}
+};
+
+refs.input.addEventListener("input", debounce(onInputSearch, 500));
