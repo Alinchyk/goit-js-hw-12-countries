@@ -17,17 +17,6 @@ const renderCountryList = function (countryName) {
   refs.cardContainer.innerHTML = templateList(countryName);
 };
 
-const onInputSearch = function (e) {
-  e.preventDefault();
-
-  const searchQuery = e.target.value.trim();
-  clearInput();
-
-  API.fetchCountry(searchQuery)
-    .then(isValidSearchQuery)
-    .catch(error => alert(error));
-};
-
 const isValidSearchQuery = function (e) {
   if (e.length === 1) {
     rederCountryCard(e);
@@ -37,13 +26,29 @@ const isValidSearchQuery = function (e) {
     return;
   } else if (e.length > 10) {
     return onOutputInfo();
-  } else if (e.status === 404) {
+  } else {
     return onNoCountry();
   }
 };
 
 const clearInput = function () {
   refs.cardContainer.innerHTML = "";
+};
+
+const onInputSearch = function (e) {
+  e.preventDefault();
+
+  const searchQuery = e.target.value.trim();
+
+  if (searchQuery.length === 0) {
+    return;
+  }
+
+  clearInput();
+
+  API.fetchCountry(searchQuery)
+    .then(isValidSearchQuery)
+    .catch(error => console.log(error));
 };
 
 refs.input.addEventListener("input", debounce(onInputSearch, 500));
